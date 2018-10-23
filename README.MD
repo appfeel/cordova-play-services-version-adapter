@@ -10,7 +10,7 @@ Simply install this plugin in your application, and when we compile we take care
 To install this plugin, follow the [Command-line Interface Guide](http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface). You can use one of the following command lines:
 
 * `cordova plugin add cordova-admob`
-* `cordova plugin add https://github.com/appfeel/admob-google-cordova.git`
+* `cordova plugin add https://dev.appfeel.com/git/miquel/cordova-play-services-version-adapter.git`
 
 ---
 ## Harmonization ##
