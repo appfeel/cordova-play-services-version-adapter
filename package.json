@@ -1,7 +1,7 @@
 {
     "name": "cordova-play-services-version-adapter",
     "version": "1.0.0",
-    "description": "",
+    "description": "Cordova/Ionic Google Play Services Versions Incompatibility Adapter",
     "cordova": {
         "id": "cordova-play-services-version-adapter",
         "platforms": [
@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/appfeel/repository-url.git"
+        "url": "git+https://github.com/appfeel/cordova-play-services-version-adapter.git"
     },
     "keywords": [
         "exception",
@@ -58,7 +58,7 @@
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/appfeel/repository-url/issues"
+        "url": "https://github.com/appfeel/cordova-play-services-version-adapter/issues"
     },
-    "homepage": "https://github.com/appfeel/repository-url#readme"
+    "homepage": "https://github.com/appfeel/cordova-play-services-version-adapter#readme"
 }
