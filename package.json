@@ -1,0 +1,64 @@
+{
+    "name": "cordova-play-services-version-adapter",
+    "version": "1.0.0",
+    "description": "",
+    "cordova": {
+        "id": "cordova-play-services-version-adapter",
+        "platforms": [
+            "android",
+            "ios",
+            "windows",
+            "browser",
+            "osx",
+            "www"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/appfeel/repository-url.git"
+    },
+    "keywords": [
+        "exception",
+        "incompatibility",
+        "build",
+        "GoogleServicesPlugin",
+        "com.google.gms.googleservices.GoogleServicesPlugin",
+        "firebase",
+        "maps",
+        "admob",
+        "push",
+        "notification",
+        "analytics",
+        "play-services",
+        "appfeel",
+        "ecosystem:cordova",
+        "cordova-android",
+        "cordova-ios",
+        "ionic",
+        "cordova"
+    ],
+    "engines": 
+        {
+            "name": "cordova",
+            "version": ">=7.0.0"
+        }
+    ,
+    "author": "AppFeel",
+    "contributors": [
+        {
+            "name": "David Silvestre Gil",
+            "email": "david.silvestre@appfeel.com",
+            "url": "https://www.appfeel.com"
+        },
+        {
+            "name": "Ricard López Olivares",
+            "email": "ricard.lopez@appfeel.com",
+            "url": "https://www.appfeel.com"
+        }
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/appfeel/repository-url/issues"
+    },
+    "homepage": "https://github.com/appfeel/repository-url#readme"
+}
