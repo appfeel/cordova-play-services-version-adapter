@@ -18,12 +18,14 @@ This plugin will analyze all libraries being used by the application, see which 
 
 Simply install this plugin and it will take care of optimizing the versions of Google Play Services at prepare, compile or run time.
 
-1. [Quick start](#quick-start)
-2. [How it works](#how-it-works)
-3. [Common problems that this plugin can fix](#common-problems-that-this-plugin-can-fix)
-4. [Other plugins you may be interested on](#other-plugins-you-may-be-interested-on)
-5. [Credits](#credits)
-6. [License](#license)
+- [Quick start](#quick-start)
+- [How it works](#how-it-works)
+        - [Success example:](#success-example)
+        - [Error example:](#error-example)
+- [Common problems that this plugin can fix](#common-problems-that-this-plugin-can-fix)
+- [Other plugins you may be interested on](#other-plugins-you-may-be-interested-on)
+- [Credits](#credits)
+- [License](#license)
 
 ## Quick start ##
 
@@ -40,7 +42,7 @@ As soon as the application compiles, all versions of Google Play Services plugin
 
 #### Success example:
 ```
-'Cordova Play Services Version Adapter' plugin has successfully applied the following changes:
+'Cordova Play Services Version Adapter' has successfully applied the following changes:
     - 'com.google.android.gms:play-services-analytics:+' => 15.0.0
     - 'com.google.android.gms:play-services-maps:15.0.1' => 15.0.0
     - 'com.google.android.gms:play-services-location:15.0.1' => 15.0.0
