@@ -12,7 +12,7 @@
     <engine name="cordova" version=">=7.0.0" />
   </engines>
 
-  <hook type="before_prepare" src="scripts/harmonize-play-services-versions.js" />
-  <hook type="after_prepare" src="scripts/show-harmonize-play-services-result.js" />
+  <hook type="before_prepare" src="scripts/adapt-play-services-versions.js" />
+  <hook type="after_prepare" src="scripts/show-adapt-play-services-result.js" />
 
 </plugin>

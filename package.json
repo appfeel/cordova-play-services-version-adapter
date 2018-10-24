@@ -37,12 +37,10 @@
         "ionic",
         "cordova"
     ],
-    "engines": 
-        {
-            "name": "cordova",
-            "version": ">=7.0.0"
-        }
-    ,
+    "engines": {
+        "name": "cordova",
+        "version": ">=7.0.0"
+    },
     "author": "AppFeel",
     "contributors": [
         {

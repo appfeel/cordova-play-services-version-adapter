@@ -9,11 +9,11 @@ module.exports = function (ctx) {
     if (process.env.adapterSuccess) {
         console.log(`${greenSuccess}\n${process.env.adapterSuccess}${resetColor}\n`);
     }
-    if (process.env.adapterWarning) {
-        console.log(`${yellowWarning}\n${process.env.adapterWarning}${resetColor}\n`);
-    }
     if (process.env.adapterError) {
         console.log(`${redError}\n${process.env.adapterError}${resetColor}\n`);
+    }
+    if (process.env.adapterWarning) {
+        console.log(`${yellowWarning}\n${process.env.adapterWarning}${resetColor}\n`);
     }
     deferral.resolve();
     return deferral.promise;

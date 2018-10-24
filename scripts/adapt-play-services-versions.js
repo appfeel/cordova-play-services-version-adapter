@@ -7,23 +7,23 @@ const cordovaLybrary = 'cordova.system.library';
 const googleAndroid = 'com.google.android.gms';
 const googleFirebase = 'com.google.firebase';
 const playServicesAds = 'play-services-ads';
-const compatPlgs = ['cordova-admob'];
 const libraries = [];
 
 let deferral;
-let isCompatible = false;
-let hasPlayServicesAds = false;
+let isCompatLib = false;
+let isUsingGPSA = false;
 let minVersion;
 let newVersion;
 
-function isAdmobAndCompatible(package, dependency) {
-    if (package === googleAndroid && dependency === playServicesAds) {
-        hasPlayServicesAds = true;
-        if (!isCompatible) {
+function isGPSLib(libPackage, dependency) {
+    let isTarget = libPackage.indexOf(googleAndroid) > -1 || libPackage.indexOf(googleFirebase) > -1;
+    if (isTarget && libPackage === googleAndroid && dependency === playServicesAds) {
+        isUsingGPSA = true;
+        if (!isCompatLib) {
             return false;
         }
     }
-    return true;
+    return isTarget;
 }
 
 function getBiggerVersion(v1, v2, idx = 0) {
@@ -52,21 +52,21 @@ function prepareLibraries(lines) {
         if (line.indexOf(cordovaLybrary) > -1) {
             const params = line.split('=');
             const libraryParams = params[1].split(':');
-            const package = libraryParams[0];
+            const libPackage = libraryParams[0];
             const dependency = libraryParams[1];
             const version = libraryParams[2];
-            if ((package.indexOf(googleAndroid) > -1 || package.indexOf(googleFirebase) > -1) && isAdmobAndCompatible(package, dependency)) {
-                libraries.push({ library: params[0], package, dependency, version, isGoogle: true });
+            if (isGPSLib(libPackage, dependency)) {
+                libraries.push({ library: params[0], libPackage, dependency, version, isGPS: true });
                 if (!minVersion) {
-                    minVersion = { package, dependency, version };
+                    minVersion = { libPackage, dependency, version };
                 } else {
                     const bigger = getBiggerVersion(minVersion.version, version);
                     if (bigger === version) {
-                        minVersion = { package, dependency, version: bigger };
+                        minVersion = { libPackage, dependency, version: bigger };
                     }
                 }
             } else {
-                libraries.push({ library: params[0], package, dependency, version, isGoogle: false });
+                libraries.push({ library: params[0], libPackage, dependency, version, isGPS: false });
             }
         } else {
             newLines.push(line);
@@ -85,7 +85,7 @@ function setNewVersion(version, libraries) {
 
 function prepareNewVersion() {
     let possibleVersions = dependencies.filter(l => getBiggerVersion(l.version, minVersion.version) === l.version);
-    const parsedLibraries = libraries.filter(l => l.isGoogle).map(l => `${l.package}:${l.dependency}`);
+    const parsedLibraries = libraries.filter(l => l.isGPS).map(l => `${l.package}:${l.dependency}`);
     if (isNaN(minVersion.version.split('.')[0])) {
         for (let i = possibleVersions.length - 1, n = 0; i >= n; i -= 1) {
             const setted = setNewVersion(possibleVersions[i], parsedLibraries);
@@ -120,17 +120,19 @@ function prepareSuccess(libraries, version) {
 }
 
 function prepareWarning() {
-    let warning = '';
-    if (hasPlayServicesAds) {
-        warning += 'WARNING: some plugins are using \'com.google.android.gms:play-services-ads\''
-        warning += '\nIt is not possible to find the required version of \'Google Play Services\' Ads library.';
-        warning += `\n\nUse 'cordova-admob' to monetize with AdMob`;
-    } else if (!hasPlayServicesAds) {
-        warning += 'Monetize your app with AdMob ads. Now available with this cordova / phonegap plugin:';
+    if (!isCompatLib) {
+        let warning = '';
+        if (isUsingGPSA) {
+            warning += 'WARNING: some plugins are using \'com.google.android.gms:play-services-ads\''
+            warning += '\nIt is not possible to find the required version of \'Google Play Services\' Ads library.';
+            warning += `\n\nUse 'cordova-admob' to monetize with AdMob`;
+        } else if (!isUsingGPSA) {
+            warning += 'Monetize your app with AdMob ads. Now available with this cordova / phonegap plugin:';
+        }
+        warning += '\ncordova plugin add cordova-admob';
+        warning += '\nDocs: https://github.com/appfeel/admob-google-cordova';
+        process.env.adapterWarning = warning;
     }
-    warning += '\ncordova plugin add cordova-admob';
-    warning += '\nDocs: https://github.com/appfeel/admob-google-cordova';
-    process.env.adapterWarning = warning;
 }
 
 function prepareError(libraries) {
@@ -148,26 +150,24 @@ function run() {
     const data = fs.readFileSync(properties, 'utf8');
     if (data) {
         const newLines = prepareLibraries(data.split('\n'));
-        if (libraries.filter(l => l.isGoogle).length > 1) {
+        if (libraries.filter(l => l.isGPS).length > 1) {
             prepareNewVersion();
             if (newVersion) {
                 for (let i = 0, n = libraries.length; i < n; i += 1) {
                     const library = libraries[i];
-                    const libraryVersion = library.isGoogle ? newVersion : library.version;
+                    const libraryVersion = library.isGPS ? newVersion : library.version;
                     newLines.push(`${library.library}=${library.package}:${library.dependency}:${libraryVersion}`);
                 }
-                const parsedLibrariesVersion = libraries.filter(l => l.isGoogle && l.version !== newVersion).map(l => `${l.package}:${l.dependency}:${l.version}`);
+                const parsedLibrariesVersion = libraries.filter(l => l.isGPS && l.version !== newVersion).map(l => `${l.package}:${l.dependency}:${l.version}`);
                 if (parsedLibrariesVersion.length > 0) {
                     prepareSuccess(parsedLibrariesVersion, newVersion);
                 }
             } else {
-                const parsedLibrariesVersion = libraries.filter(l => l.isGoogle).map(l => `${l.package}:${l.dependency}:${l.version}`);
+                const parsedLibrariesVersion = libraries.filter(l => l.isGPS).map(l => `${l.package}:${l.dependency}:${l.version}`);
                 prepareError(parsedLibrariesVersion);
             }
         }
-        if (!isCompatible) {
-            prepareWarning();
-        }
+        prepareWarning();
         if (newVersion) {
             fs.writeFileSync(properties, newLines.join('\n'));
         }
@@ -188,7 +188,7 @@ function attempt(fn) {
 module.exports = function (ctx) {
     deferral = ctx.requireCordovaModule('q').defer();
     if (ctx.cmdLine.indexOf('platform add') === -1) {
-        isCompatible = ctx.opts.cordova.plugins.find(p => compatPlgs.indexOf(p) > -1);
+        isCompatLib = ctx.opts.cordova.plugins.find(p => ['com.admob.google', 'tappx-phonegap','tappx-phonegap-wiki','admob.ads.google','admob.google.plugin','com.admob.admobads','admob-google-demo','admob-google-public_html','admob-google-wiki','cordova-admob','admob-google-xdk','admob-phonegap-build-demo'].indexOf(p) > -1);
         attempt(run)();
     } else {
         deferral.resolve();
