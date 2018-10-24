@@ -18,6 +18,13 @@ This plugin will analyze all libraries being used by the application, see which 
 
 Simply install this plugin and it will take care of optimizing the versions of Google Play Services at prepare, compile or run time.
 
+1. [Quick start](#quick-start)
+2. [How it works](#how-it-works)
+3. [Common problems that this plugin can fix](#common-problems-that-this-plugin-can-fix)
+4. [Other plugins you may be interested on](#other-plugins-you-may-be-interested-on)
+5. [Credits](#credits)
+6. [License](#license)
+
 ## Quick start ##
 
 To install this plugin, read the [Command-line Interface Guide](http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface) and use one of the following command lines:
@@ -60,7 +67,7 @@ Tried to adapt this versions but there is no version of 'Google Play Services' e
 A smaller version can not be applied because the library 'com.google.android.gms:play-services-ads' needs functionalities that were implemented from the 17 version
 ```
 
-## Common probles that this plugin can fix
+## Common problems that this plugin can fix
 
 com.android.build.api.transform.TransformException: com.android.dex.DexException: Multiple dex files define Lcom/google/android/gms/internal/zzez;
 
