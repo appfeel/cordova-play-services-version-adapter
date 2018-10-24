@@ -40,31 +40,25 @@ As soon as the application compiles, all versions of Google Play Services plugin
 
 #### Success example:
 ```
-'Cordova Play Services Version Adapter' plugin has made changes in the following dependencies:
+'Cordova Play Services Version Adapter' plugin has successfully applied the following changes:
     - 'com.google.android.gms:play-services-analytics:+' => 15.0.0
     - 'com.google.android.gms:play-services-maps:15.0.1' => 15.0.0
     - 'com.google.android.gms:play-services-location:15.0.1' => 15.0.0
     - 'com.google.firebase:firebase-messaging:11.6.2' => 15.0.0
-
-The library 'com.google.android.gms:play-services-location' needs at least version 15 of 'Google Play Services'
-These changes are necessary since all plugins must use the same version of 'Google Play Services'
-Otherwise the application would not compile
 ```
 
 #### Error example:
 ```
-'Cordova Play Services Version Adapter' plugin detects an error: your application will not compile
-You have an incompatibility of versions with the following dependencies of 'Google Play Services':
+'Cordova Play Services Version Adapter' has detected an error. The following dependencies of 'Google Play Services' are not compatible:
     - 'com.google.android.gms:play-services-ads:17.0.0'
     - 'com.google.android.gms:play-services-analytics:+'
     - 'com.google.android.gms:play-services-maps:15.0.1'
     - 'com.google.android.gms:play-services-location:15.0.1'
     - 'com.google.firebase:firebase-messaging:11.6.2'
 
-All dependencies of 'Google Play Services' must have the same version
-The library 'com.google.android.gms:play-services-ads' needs at least version 17 of 'Google Play Services'
-Tried to adapt this versions but there is no version of 'Google Play Services' equal to or greater than 17 that contains all those dependencies together
-A smaller version can not be applied because the library 'com.google.android.gms:play-services-ads' needs functionalities that were implemented from the 17 version
+It doesn't exists a version of 'Google Play Services' that includes all these dependencies.
+All dependencies of 'Google Play Services' must have the same version.
+The application may not compile.
 ```
 
 ## Common problems that this plugin can fix
