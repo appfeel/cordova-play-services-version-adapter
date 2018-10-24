@@ -60,7 +60,7 @@ Tried to adapt this versions but there is no version of 'Google Play Services' e
 A smaller version can not be applied because the library 'com.google.android.gms:play-services-ads' needs functionalities that were implemented from the 17 version
 ```
 
-## Common probles that this plugin will solve
+## Common probles that this plugin can fix
 
 com.android.build.api.transform.TransformException: com.android.dex.DexException: Multiple dex files define Lcom/google/android/gms/internal/zzez;
 
