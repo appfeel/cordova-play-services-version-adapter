@@ -1,4 +1,4 @@
-*<p style="font-size: small;text-align:right;" align="right"><a style="color:#232323" color="#232323" href="http://appfeel.com">Made in Barcelona with <span color="#FCB">&lt;3</span> and <span color="#BBCCFF">Code</span></a></p>*
+*<p style="font-size: small;text-align:right;" align="right"><a style="color:#232323" color="#232323" href="http://appfeel.com">Made in Barcelona with <span style="color:#FCB" color="#FCB">&lt;3</span> and <span style="color:#BBCCFF" color="#BBCCFF">Code</span></a></p>*
 
 Cordova Google Play Services / Firebase versions adapter
 ================================================
