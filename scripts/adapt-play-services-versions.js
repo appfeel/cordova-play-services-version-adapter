@@ -36,7 +36,7 @@ function getBiggerVersion(v1, v2, idx = 0) {
             if (idx === v1Params.length - 1) {
                 return v1;
             }
-            return getBigger(v1, v2, idx + 1);
+            return getBiggerVersion(v1, v2, idx + 1);
         }
         return v1;
     } else if (isNaN(v1Params[idx]) && !isNaN(v2Params[idx])) {
@@ -85,7 +85,7 @@ function setNewVersion(version, libraries) {
 
 function prepareNewVersion() {
     let possibleVersions = dependencies.filter(l => getBiggerVersion(l.version, minVersion.version) === l.version);
-    const parsedLibraries = libraries.filter(l => l.isGPS).map(l => `${l.package}:${l.dependency}`);
+    const parsedLibraries = libraries.filter(l => l.isGPS).map(l => `${l.libPackage}:${l.dependency}`);
     if (isNaN(minVersion.version.split('.')[0])) {
         for (let i = possibleVersions.length - 1, n = 0; i >= n; i -= 1) {
             const setted = setNewVersion(possibleVersions[i], parsedLibraries);
@@ -156,14 +156,14 @@ function run() {
                 for (let i = 0, n = libraries.length; i < n; i += 1) {
                     const library = libraries[i];
                     const libraryVersion = library.isGPS ? newVersion : library.version;
-                    newLines.push(`${library.library}=${library.package}:${library.dependency}:${libraryVersion}`);
+                    newLines.push(`${library.library}=${library.libPackage}:${library.dependency}:${libraryVersion}`);
                 }
-                const parsedLibrariesVersion = libraries.filter(l => l.isGPS && l.version !== newVersion).map(l => `${l.package}:${l.dependency}:${l.version}`);
+                const parsedLibrariesVersion = libraries.filter(l => l.isGPS && l.version !== newVersion).map(l => `${l.libPackage}:${l.dependency}:${l.version}`);
                 if (parsedLibrariesVersion.length > 0) {
                     prepareSuccess(parsedLibrariesVersion, newVersion);
                 }
             } else {
-                const parsedLibrariesVersion = libraries.filter(l => l.isGPS).map(l => `${l.package}:${l.dependency}:${l.version}`);
+                const parsedLibrariesVersion = libraries.filter(l => l.isGPS).map(l => `${l.libPackage}:${l.dependency}:${l.version}`);
                 prepareError(parsedLibrariesVersion);
             }
         }
