@@ -5,7 +5,7 @@ const redError = '\x1b[31m';
 const resetColor = '\x1b[0m';
 
 module.exports = function (ctx) {
-    deferral = ctx.requireCordovaModule('q').defer();
+    deferral = require('q').defer();
     if (process.env.adapterSuccess) {
         console.log(`${greenSuccess}\n${process.env.adapterSuccess}${resetColor}\n`);
     }
