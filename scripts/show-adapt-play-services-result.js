@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-const q = require('q');
-
 const greenSuccess = '\x1b[32m';
 const yellowWarning = '\x1b[33m';
 const redError = '\x1b[31m';
 const resetColor = '\x1b[0m';
 
 module.exports = function (ctx) {
-    deferral = q.defer();
+    try {
+        deferral = ctx.requireCordovaModule('q').defer();
+    } catch (e) {
+        deferral = require('q').defer();
+    }
     if (process.env.adapterSuccess) {
         console.log(`${greenSuccess}\n${process.env.adapterSuccess}${resetColor}\n`);
     }
