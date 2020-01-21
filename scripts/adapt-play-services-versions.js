@@ -186,7 +186,11 @@ function attempt(fn) {
 }
 
 module.exports = function (ctx) {
-    deferral = ctx.requireCordovaModule('q').defer();
+    try {
+        deferral = ctx.requireCordovaModule('q').defer();
+    } catch (e) {
+        deferral = require('q').defer();
+    }
     if (ctx.opts.cordova.platforms && ctx.opts.cordova.platforms.indexOf('android') > -1) {
         if (ctx.cmdLine.indexOf('platform add') === -1) {
             isCompatLib = ctx.opts.cordova.plugins.find(p => ['com.admob.google', 'tappx-phonegap', 'tappx-phonegap-wiki', 'admob.ads.google', 'admob.google.plugin', 'com.admob.admobads', 'admob-google-demo', 'admob-google-public_html', 'admob-google-wiki', 'cordova-admob', 'admob-google-xdk', 'admob-phonegap-build-demo'].indexOf(p) > -1);
